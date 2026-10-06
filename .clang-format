@@ -1,0 +1,21 @@
+---
+# Google style (built-in clang-format style) for this folder.
+#   2-space indent (spaces), no line wrapping (ColumnLimit 0), pointer alignment
+#   derived per-file.
+# Saved originals:
+#   .clang-format.tabs4.bak     - original config moved from C:\Users\15321 (Google base, tabs/4, ColumnLimit 0)
+#   .clang-format.icpc2space.bak - intermediate 2-space version of the same custom config
+# Other standard styles to compare: .clang-format-variants/
+Language: Cpp
+BasedOnStyle: Google
+
+# Never wrap: ColumnLimit 0 disables the column limit entirely.
+ColumnLimit: 0
+# With no column limit above, make sure nothing else reintroduces breaks.
+# ReflowComments: false
+# AllowAllArgumentsOnNextLine: false
+# AllowAllConstructorInitializersOnNextLine: false
+# BinPackArguments: true
+# BinPackParameters: true
+# BreakBeforeBinaryOperators: None
+# BreakStringLiterals: false
