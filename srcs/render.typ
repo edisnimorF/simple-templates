@@ -6,6 +6,15 @@
   author: "author",
   doc,
 ) = {
+  // simple-style's metrics pairing: every family in these two lists has OS/2
+  // sTypoAscender/sTypoDescender = 0.800/0.200 em, so a line mixing CJK, Latin and math
+  // is always exactly 1.000 em tall no matter which family wins each glyph. The Windows
+  // faces come first; `FandolSong` is the free stand-in shipped in `fonts/` that keeps
+  // GitHub Actions (which has no CJK font at all) on the same line box. Families that are
+  // absent only warn, so a CI log shows two harmless `unknown font family` lines.
+  set text(font: ("XCharter", "STKaiti", "STSong", "FandolSong"))
+  show math.equation: set text(font: "Erewhon Math")
+
   show title: set align(center)
   title(topic)
   align(center)[#author]

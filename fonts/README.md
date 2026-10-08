@@ -74,13 +74,16 @@ Typst 0.14.2 实测（`typst query` 探针，5 种行：纯中 / 纯英 / 中英
 typst compile --font-path fonts --root . templates.typ templates.pdf
 ```
 
-CI 里就是这一条（见 `.github/workflows/main.yml`）。若在 `.typ` 里显式写字体，
-本机字体放前面、FandolSong 兜底即可，两者度量一致所以不会改变行盒：
+CI 里就是这一条（见 `.github/workflows/main.yml`）。字体列表已经写死在 `srcs/render.typ`
+的 `render-style` 里，本机字体在前、`FandolSong` 兜底：
 
 ```typst
 #set text(font: ("XCharter", "STKaiti", "STSong", "FandolSong"))
 #show math.equation: set text(font: "Erewhon Math")
 ```
+
+两者度量一致，所以哪个赢都不改变行盒。缺哪个家族只出 warning 不改结果，
+所以 CI 日志里会有 `unknown font family: stkaiti` / `stsong` 两条（正常）。
 
 ## 重新核验
 

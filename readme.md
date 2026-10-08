@@ -5,7 +5,9 @@ Compile `//@`-annotated C++ templates into a printable reference PDF with Typst.
 ## Quick start
 
 ```sh
-typst compile templates.typ   # or: typst watch templates.typ
+# --font-path fonts is required: it carries the CJK font the pairing needs
+# (without it you only get an `unknown font family` warning, but Chinese would fall back)
+typst compile --font-path fonts templates.typ   # or: typst watch --font-path fonts templates.typ
 ```
 
 ```typst
@@ -79,10 +81,21 @@ tags. The example above renders one code block, the `solve` function.
 
 ```text
 codes/          sources to print, the default root
+fonts/          XCharter + Erewhon Math + FandolSong, the metrics pairing (see fonts/README.md)
 srcs/decode.typ the decoder: source text -> code-infos
 srcs/render.typ render-style, render-code, render-code-file
 test/test.typ   the smallest document that renders one file
 templates.typ   the document that compiles to the book
 ```
+
+## Fonts
+
+`render-style` sets `XCharter + STKaiti/STSong + FandolSong` for text and `Erewhon Math`
+for formulas, i.e. the free half of `simple-style`'s pairing: every family has OS/2
+`sTypoAscender/sTypoDescender = 0.800/0.200 em`, so a line mixing Chinese, Latin and math
+is always exactly `1.000 em` tall whichever family wins each glyph. `STKaiti`/`STSong` are
+Windows-only, so `fonts/` ships the free CTAN stand-in `FandolSong` for CI — the runner has
+no CJK font at all, and it warns about the two missing Windows families (harmless).
+Details, hashes and measurements: `fonts/README.md`.
 
 Verified with Typst 0.14.2.
