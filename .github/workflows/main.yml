@@ -19,8 +19,13 @@ jobs:
       - name: Install Typst
         uses: typst-community/setup-typst@v5
 
+      # The runner has no CJK font at all, so the bundled fonts/ (all in the
+      # 0.800/0.200 em metrics cluster) are what makes Chinese render correctly.
+      - name: Check the bundled fonts are visible to Typst
+        run: for f in XCharter FandolSong 'Erewhon Math'; do typst fonts --font-path fonts | grep -qx "$f"; done
+
       - name: Compile PDF
-        run: typst compile --root . templates.typ templates.pdf
+        run: typst compile --font-path fonts --root . templates.typ templates.pdf
 
       - name: Upload PDF
         uses: actions/upload-artifact@v7
