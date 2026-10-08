@@ -1,0 +1,30 @@
+name: Compile Typst
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Install Typst
+        uses: typst-community/setup-typst@v5
+
+      - name: Compile PDF
+        run: typst compile --root . templates.typ templates.pdf
+
+      - name: Upload PDF
+        uses: actions/upload-artifact@v7
+        with:
+          name: document
+          path: templates.pdf
+          if-no-files-found: error
